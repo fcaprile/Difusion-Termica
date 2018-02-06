@@ -1,0 +1,26 @@
+import math as m
+from matplotlib import pyplot as plt
+import numpy as np
+from scipy.optimize import curve_fit
+from array import array
+import os
+
+#cargo los txt
+tiempo=np.loadtxt('C:/Users/ferchi/.spyder-py3/labo/Mediciones/difusion/cuadrada/t.txt', delimiter = ',')
+datos=np.loadtxt('C:/Users/ferchi/.spyder-py3/labo/Mediciones/difusion/cuadrada/x.txt', delimiter = ',')
+tiempo=tiempo[:,2200:]
+datos=datos[:,2200:]
+
+plt.plot(tiempo[0,:],datos[0,:],'b-')
+plt.plot(tiempo[1,:],datos[1,:],'b-')
+plt.plot(tiempo[2,:],datos[2,:],'b-')
+plt.plot(tiempo[3,:],datos[3,:],'b-')
+plt.plot(tiempo[4,:],datos[4,:],'b-')
+plt.plot(tiempo[5,:],datos[5,:],'b-')
+
+plt.grid(True) # Para que quede en hoja cuadriculada
+plt.title('Temperatura en funcion del tiempo')
+plt.xlabel('tiempo (s)')
+plt.ylabel('Temnperatura (ºC)')
+plt.legend(loc = 'best') 
+
