@@ -1,0 +1,45 @@
+import numpy as np
+import math as m
+import os
+import string
+from scipy.optimize import curve_fit
+import matplotlib.pyplot as plt
+plt.figure(num=None, figsize=(8, 4), dpi=80, facecolor='w', edgecolor='k')
+
+#cargo los txt
+tiempo=np.loadtxt('C:/Users/ferchi/.spyder-py3/labo/Mediciones/difusion/cuadrada/t.txt', delimiter = ',')
+datos=np.loadtxt('C:/Users/ferchi/.spyder-py3/labo/Mediciones/difusion/cuadrada/x.txt', delimiter = ',')
+tiempo=tiempo[:,2200:]
+datos=datos[:,2200:]
+
+
+a=5
+x=tiempo[a,:]
+y=datos[a,:]
+ey=np.linspace(0.2,0.2,len(y))
+r=0.002
+d=2
+picosy=[]
+picosx=[]
+i=d
+ar=1
+ab=-1
+
+while i<len(x)-5*d:
+    if y[i]-y[i+d]>r and y[i]-y[i+2*d]>2*r and y[i]-y[i+3*d]>3*r and y[i]-y[i+4*d]>4*r and y[i]-y[i+5*d]>5*r and y[i]-y[i-d]>r and y[i]-y[i-2*d]>2*r and y[i]-y[i-3*d]>3*r and y[i]-y[i-4*d]>4*r and y[i]-y[i-5*d]>5*r:     
+        picosy.append(y[i])
+        picosx.append(x[i])
+        i=i+d
+    i=i+1
+picosy=np.array(picosy)
+picosx=np.array(picosx)
+
+plt.plot(x[ar:ab],y[ar:ab],'b-', label = 'Datos')#x e y deben ser vectores del mismo tamaño
+plt.errorbar(x[ar:ab],y[ar:ab],ey[ar:ab],linestyle = 'None')
+plt.scatter(picosx,picosy,s=100,c='r', label = 'Máximos')
+#plt.plot(x,f(x, popt[0],popt[1]), 'g-', label = 'Ajuste')#los popt son los valores de las variables fiteadas que usara la funcion f                      
+plt.grid(True) # Para que quede en hoja cuadriculada
+plt.title('Comparación de frecuencias de batido')
+plt.xlabel('Frecuencia calculada en base a la velocidad (m/s)')
+plt.ylabel('Frecuencia observada por osciloscópio (m/s)')
+plt.legend(loc = 'best') 
