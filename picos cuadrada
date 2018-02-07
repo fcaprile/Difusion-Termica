@@ -18,8 +18,8 @@ for a in range(6):
     y=datos[a,:]
     ey=np.linspace(0.2,0.2,len(y))
     #genero variables
-    r=0.001
-    d=3
+    r=0.0025
+    d=6
     picosy=[]
     picosx=[]
     i=d
@@ -32,6 +32,10 @@ for a in range(6):
             picosx.append(x[i])
             i=i+d
         i+=1
+    #saco 1 punto que sobra
+    if a==1:
+        picosx.remove(picosx[0])
+        picosy.remove(picosy[0])
         #ploteo
     picosy=np.array(picosy)
     picosx=np.array(picosx)
